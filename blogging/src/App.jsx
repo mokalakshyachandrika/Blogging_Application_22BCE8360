@@ -1,16 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 
 import Headder from "./headder";
 import Footer from "./footer";
 import BlogsCard from "./blogsCard";
 import Blogs from "./blogs";
 import SingleArticle from "./singleArticle";
-import "./App.css";
 import Profile from "./profile";
+import Login from "./google/login";
+import { auth } from "./google/config"; // Import Firebase auth
+
+import "./App.css";
 
 function App() {
   const [blogs, setBlogs] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:5001/articles")
+      .then((response) => response.json())
+      .then((data) => setBlogs(data))
+      .catch((error) => console.error("Error fetching blogs:", error));
+  }, []);
 
   const router = createBrowserRouter([
     {
@@ -31,7 +55,6 @@ function App() {
               />
             ))}
           </div>
-
           <Footer />
         </>
       ),
@@ -73,25 +96,24 @@ function App() {
       element: (
         <>
           <Headder />
-          <Profile />
+          {user ? <Profile user={user} /> : <Login />}
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <>
+          <Headder />
+          <Login />
           <Footer />
         </>
       ),
     },
   ]);
 
-  useEffect(() => {
-    fetch("http://localhost:5001/articles")
-      .then((response) => response.json())
-      .then((data) => setBlogs(data))
-      .catch((error) => console.error("Error fetching blogs:", error));
-  }, []);
-
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

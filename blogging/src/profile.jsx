@@ -1,14 +1,19 @@
+import React from "react";
 import "./profile.css";
+import { auth } from "./google/config";
 
-function Profile() {
+function Profile({ user }) {
+  const signOut = () => {
+    auth.signOut();
+  };
+
   return (
-    <>
-      <div className="profile-main">
-        <image src="https://" alt="Profile Pic" />
-        <h3 className="profile-name">User Name</h3>
-        <p className="profile-email">example.email.com</p>
-      </div>
-    </>
+    <div className="profile-main">
+      <img src={user.photoURL} alt="Profile Pic" className="profile-pic" />
+      <h3 className="profile-name">{user.displayName}</h3>
+      <p className="profile-email">{user.email}</p>
+      <button onClick={signOut}>Sign Out</button>
+    </div>
   );
 }
 
