@@ -1,0 +1,32 @@
+.profile-first {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-family: "Poppins";
+}
+.profile-pic {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+}
+.profile-name {
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.profile-email {
+  margin: 0;
+  font-size: 14px;
+  color: hsl(0, 0%, 40%);
+}
+.profile-dash {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  height: 1px;
+  background-color: hsl(0, 0%, 80%);
+}
