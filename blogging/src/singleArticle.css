@@ -1,0 +1,29 @@
+.single-article {
+  background-color: hsl(0, 0%, 95%);
+  font-family: "Poppins";
+  text-align: center;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+.single-article img {
+  width: 70%;
+  height: auto;
+}
+.single-article h1 {
+  font-size: 35px;
+  font-weight: 600;
+}
+.singleArticle-meta {
+  margin-left: 15%;
+  text-align: left;
+  color: hsl(0, 0%, 35%);
+}
+.singleArticle-content {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+.singleArticle-content p {
+  font-size: 20px;
+}

@@ -1,0 +1,9 @@
+.mainDiv {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+  background-color: beige;
+}

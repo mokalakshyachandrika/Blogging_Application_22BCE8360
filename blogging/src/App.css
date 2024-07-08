@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+.latest {
+  margin-left: 20px;
+  font-family: "Poppins";
+  font-size: 28px;
+  font-weight: 600;
+}
+.cardHolder {
+  text-align: center;
+}
+.allBlogs-cardHolder {
+  text-align: center;
+}

@@ -1,0 +1,32 @@
+.main {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: beige;
+  padding: 20px;
+}
+.logoimg {
+  width: 150px;
+  height: auto;
+  margin-left: 100px;
+}
+
+.menu li {
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 80px;
+  font-size: 22px;
+  font-family: "Poppins";
+  font-weight: 600;
+}
+.menu li a {
+  text-decoration: none;
+  color: black;
+}
+.search {
+  display: inline-block;
+  margin-right: 100px;
+  width: 100px;
+  margin-top: 15px;
+  cursor: pointer;
+}
