@@ -48,21 +48,27 @@ function App() {
       element: (
         <>
           <Headder />
-          <h2 className="latest">Latest Articles :</h2>
-          <div className="cardHolder">
-            {blogs.map((blog) => (
-              <BlogsCard
-                key={blog._id}
-                img={blog.featured_image}
-                title={blog.title.replace(/<[^>]*>/g, "")}
-                time={new Date(blog.time).toLocaleDateString()}
-                readingTime={blog.readingTime}
-                author={blog.author}
-                content={blog.content.replace(/<[^>]*>/g, "")}
-                link={`/articles/${blog._id}`}
-              />
-            ))}
-          </div>
+          {user ? (
+            <>
+              <h2 className="latest">Latest Articles :</h2>
+              <div className="cardHolder">
+                {blogs.map((blog) => (
+                  <BlogsCard
+                    key={blog._id}
+                    img={blog.featured_image}
+                    title={blog.title.replace(/<[^>]*>/g, "")}
+                    time={new Date(blog.time).toLocaleDateString()}
+                    readingTime={blog.readingTime}
+                    author={blog.author}
+                    content={blog.content.replace(/<[^>]*>/g, "")}
+                    link={`/articles/${blog._id}`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <Login />
+          )}
           <Footer />
         </>
       ),
@@ -72,21 +78,27 @@ function App() {
       element: (
         <>
           <Headder />
-          <h2 className="latest">All Blogs :</h2>
-          <div className="allBlogs-cardHolder">
-            {blogs.map((blog) => (
-              <Blogs
-                key={blog._id}
-                img={blog.featured_image}
-                title={blog.title.replace(/<[^>]*>/g, "")}
-                time={new Date(blog.time).toLocaleDateString()}
-                readingTime={blog.readingTime}
-                author={blog.author}
-                content={blog.content.replace(/<[^>]*>/g, "")}
-                link={`/articles/${blog._id}`}
-              />
-            ))}
-          </div>
+          {user ? (
+            <>
+              <h2 className="latest">All Blogs :</h2>
+              <div className="allBlogs-cardHolder">
+                {blogs.map((blog) => (
+                  <Blogs
+                    key={blog._id}
+                    img={blog.featured_image}
+                    title={blog.title.replace(/<[^>]*>/g, "")}
+                    time={new Date(blog.time).toLocaleDateString()}
+                    readingTime={blog.readingTime}
+                    author={blog.author}
+                    content={blog.content.replace(/<[^>]*>/g, "")}
+                    link={`/articles/${blog._id}`}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <Login />
+          )}
           <Footer />
         </>
       ),
@@ -96,7 +108,7 @@ function App() {
       element: (
         <>
           <Headder />
-          <SingleArticle />
+          {user ? <SingleArticle /> : <Login />}
           <Footer />
         </>
       ),
@@ -126,7 +138,7 @@ function App() {
       element: (
         <>
           <Headder />
-          <CreateArticle />
+          {user ? <CreateArticle /> : <Login />}
           <Footer />
         </>
       ),
@@ -136,7 +148,7 @@ function App() {
       element: (
         <>
           <Headder />
-          <EditArticle />
+          {user ? <EditArticle /> : <Login />}
           <Footer />
         </>
       ),
