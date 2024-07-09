@@ -34,7 +34,11 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:5001/articles")
       .then((response) => response.json())
-      .then((data) => setBlogs(data))
+      .then((data) => {
+        // Sort articles by time descending (newest to oldest)
+        data.sort((a, b) => new Date(b.time) - new Date(a.time));
+        setBlogs(data);
+      })
       .catch((error) => console.error("Error fetching blogs:", error));
   }, []);
 
@@ -51,6 +55,7 @@ function App() {
                 key={blog._id}
                 img={blog.featured_image}
                 title={blog.title.replace(/<[^>]*>/g, "")}
+                time={new Date(blog.time).toLocaleDateString()}
                 readingTime={blog.readingTime}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
@@ -73,6 +78,7 @@ function App() {
                 key={blog._id}
                 img={blog.featured_image}
                 title={blog.title.replace(/<[^>]*>/g, "")}
+                time={new Date(blog.time).toLocaleDateString()}
                 readingTime={blog.readingTime}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
@@ -124,11 +130,11 @@ function App() {
       ),
     },
     {
-      path: "/edit",
+      path: "/edit/:id",
       element: (
         <>
           <Headder />
-
+          <EditArticle />
           <Footer />
         </>
       ),

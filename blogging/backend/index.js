@@ -58,10 +58,10 @@ app.get("/", (req, resp) => {
   resp.send("App is Working");
 });
 
-// Route to get all articles
+// Route to get all articles sorted by time (newest to oldest)
 app.get("/articles", async (req, resp) => {
   try {
-    const articles = await Article.find();
+    const articles = await Article.find().sort({ time: -1 });
     resp.send(articles);
   } catch (e) {
     resp.status(500).send("Something Went Wrong");
@@ -107,7 +107,23 @@ app.get("/articles/user/:uid", async (req, resp) => {
 // Route to edit an article
 app.put("/articles/:id", async (req, resp) => {
   try {
-    const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
+    const { id } = req.params;
+    const { title, content, featured_image, readingTime } = req.body;
+
+    // Calculate reading time (if needed)
+    const wordCount = content.split(/\s+/).length;
+    const avgWordsPerMinute = 200; // Adjust as needed
+    const calculatedReadingTime = Math.ceil(wordCount / avgWordsPerMinute);
+
+    const updatedArticle = {
+      title,
+      content,
+      featured_image,
+      readingTime: readingTime || calculatedReadingTime, // Use provided or calculated reading time
+      time: new Date(), // Update time to current time
+    };
+
+    const article = await Article.findByIdAndUpdate(id, updatedArticle, {
       new: true,
     });
     resp.send(article);

@@ -3,10 +3,11 @@ import "./profile.css";
 import { auth } from "./google/config";
 import ArticleListItem from "./articleListItem";
 import blankProfilePicture from "./assets/blank-profile-picture.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 
 function Profile({ user }) {
   const [articles, setArticles] = useState([]);
+  const navigate = useNavigate(); // Use useNavigate hook for navigation
 
   useEffect(() => {
     fetch(`http://localhost:5001/articles/user/${user.uid}`)
@@ -16,8 +17,7 @@ function Profile({ user }) {
   }, [user.uid]);
 
   const handleEdit = (id) => {
-    // Handle the edit logic here
-    console.log(`Edit article with id: ${id}`);
+    navigate(`/edit/${id}`);
   };
 
   const handleDelete = (id) => {
@@ -59,7 +59,7 @@ function Profile({ user }) {
             <ArticleListItem
               key={article._id}
               article={article}
-              onEdit={handleEdit}
+              onEdit={handleEdit} // Pass handleEdit function to ArticleListItem
               onDelete={handleDelete}
             />
           ))}

@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "./google/config";
 import "./createArticle.css";
 
-function CreateArticle({ user }) {
+function CreateArticle() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
   const [readingTime, setReadingTime] = useState(0);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        navigate("/login"); // Redirect to login page if not authenticated
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const calculateReadingTime = (text) => {
     const wordsPerMinute = 200; // Average reading speed
@@ -70,7 +84,7 @@ function CreateArticle({ user }) {
           <br />
           <textarea
             id="content"
-            placeholder="Full containt of the article"
+            placeholder="Full content of the article"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required

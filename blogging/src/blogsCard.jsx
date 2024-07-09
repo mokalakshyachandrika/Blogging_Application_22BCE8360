@@ -8,9 +8,12 @@ function BlogsCard(props) {
         <div className="card">
           <img className="featuredImage" src={props.img} alt="Featured Image" />
           <h2 className="card-title">{props.title}</h2>
-          <p className="card-readingTime">
-            Time to read: {props.readingTime} Minutes
-          </p>
+          <div className="card-time">
+            <p className="card-readingTime">
+              Read Time: {props.readingTime} Minutes
+            </p>
+            <p className="card-published">Published on: {props.time}</p>
+          </div>
           <div className="card-description">
             <p>{props.content}</p>
           </div>
