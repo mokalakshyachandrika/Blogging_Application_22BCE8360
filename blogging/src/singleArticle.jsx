@@ -21,12 +21,19 @@ function SingleArticle() {
   if (!article) {
     return <p>Loading...</p>; // Placeholder while article is loading
   }
+  const actualTime = new Date(article.time).toLocaleDateString();
 
   return (
     <div className="single-article">
       <img src={article.featured_image} alt="Featured Image" />
       <h1>{article.title}</h1>
-      <p className="singleArticle-meta">{article.time}</p>
+      <div className="single-meta">
+        <p className="singleArticle-meta">Published Time: {actualTime}</p>
+        <p className="singleArticle-meta">
+          Reading Time: {article.readingTime} Minutes
+        </p>
+        <p className="singleArticle-meta">Author: {article.author}</p>
+      </div>
       <div className="singleArticle-content">
         <p>{article.content}</p>
       </div>

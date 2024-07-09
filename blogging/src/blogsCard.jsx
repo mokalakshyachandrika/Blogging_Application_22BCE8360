@@ -13,6 +13,7 @@ function BlogsCard(props) {
               Read Time: {props.readingTime} Minutes
             </p>
             <p className="card-published">Published on: {props.time}</p>
+            <p className="card-published">Author: {props.author}</p>
           </div>
           <div className="card-description">
             <p>{props.content}</p>

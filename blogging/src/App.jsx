@@ -57,6 +57,7 @@ function App() {
                 title={blog.title.replace(/<[^>]*>/g, "")}
                 time={new Date(blog.time).toLocaleDateString()}
                 readingTime={blog.readingTime}
+                author={blog.author}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
               />
@@ -80,6 +81,7 @@ function App() {
                 title={blog.title.replace(/<[^>]*>/g, "")}
                 time={new Date(blog.time).toLocaleDateString()}
                 readingTime={blog.readingTime}
+                author={blog.author}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
               />

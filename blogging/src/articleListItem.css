@@ -68,3 +68,7 @@
 .delete-btn:hover {
   opacity: 0.8;
 }
+.article-meta-row {
+  display: flex;
+  gap: 30px;
+}

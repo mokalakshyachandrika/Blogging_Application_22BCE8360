@@ -15,6 +15,7 @@ function Blogs(props) {
           <h2 className="allBlog-card-title">{props.title}</h2>
           <p className="allBlog-card-meta">Published on: {props.time}</p>
           <p className="allBlog-card-meta">Reading Time: {props.readingTime}</p>
+          <p className="allBlog-card-meta">Author: {props.author}</p>
           <div className="allBlog-card-description">
             <p>{props.content}</p>
           </div>

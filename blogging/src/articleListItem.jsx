@@ -16,6 +16,13 @@ function ArticleListItem({ article, onEdit, onDelete }) {
         <p className="article-content">
           {article.content.replace(/<[^>]*>/g, "")}
         </p>
+        <div className="article-meta-row">
+          <p className="article-meta-content">Author: {article.author}</p>
+          <p className="article-meta-content">Published on: {article.time}</p>
+          <p className="article-meta-content">
+            Reading Time: {article.readingTime}
+          </p>
+        </div>
       </div>
       <div className="article-actions">
         <button className="edit-btn" onClick={() => onEdit(article._id)}>

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 
+// Connect to the MongoDB database
 const connectDB = async () => {
   try {
     await mongoose.connect("mongodb://localhost:27017/", {
@@ -16,44 +17,33 @@ const connectDB = async () => {
   }
 };
 
+// Call the connectDB function to establish the database connection
 connectDB();
 
-// Schema for articles
-const ArticleSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+// Define the schema for articles
+const articleSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    content: { type: String, required: true },
+    time: { type: Date, required: true },
+    readingTime: { type: Number, required: true },
+    featured_image: { type: String, required: true },
+    uid: { type: String, required: true },
+    author: { type: String, required: true },
   },
-  content: {
-    type: String,
-    required: true,
-  },
-  time: {
-    type: Date,
-    default: Date.now,
-  },
-  readingTime: {
-    type: Number,
-    required: true,
-  },
-  featured_image: {
-    type: String,
-    required: true,
-  },
-  uid: {
-    type: String,
-    required: true, // Firebase user ID
-  },
-});
-const Article = mongoose.model("articles", ArticleSchema);
-Article.createIndexes();
+  { versionKey: false }
+);
 
-// For backend and express
+// Create a model for articles based on the schema
+const Article = mongoose.model("articles", articleSchema);
+Article.createIndexes(); // Ensure indexes are created for efficient queries
+
+// Initialize the Express app
 const app = express();
-console.log("App listen at port 5001");
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors()); // Middleware to enable Cross-Origin Resource Sharing
 
+// Define a route to test if the app is working
 app.get("/", (req, resp) => {
   resp.send("App is Working");
 });
@@ -68,7 +58,7 @@ app.get("/articles", async (req, resp) => {
   }
 });
 
-// Route to delete an article by ID
+// Route to get a specific article by ID
 app.get("/articles/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -86,10 +76,27 @@ app.get("/articles/:id", async (req, res) => {
 // Route to upload a new article
 app.post("/articles", async (req, resp) => {
   try {
+    // Log the request body to verify the content being sent
+    console.log("Request Body:", req.body);
+
+    // Check if the 'author' field is present in the request body
+    if (!req.body.author) {
+      return resp.status(400).send("Author is required");
+    }
+
     const article = new Article(req.body);
-    let result = await article.save();
-    resp.send(result);
+    article
+      .save()
+      .then((savedArticle) => {
+        console.log("Article saved successfully:", savedArticle);
+        resp.json(savedArticle); // Send the saved article as response
+      })
+      .catch((error) => {
+        console.error("Error saving article:", error);
+        resp.status(500).send("Error saving article");
+      });
   } catch (e) {
+    console.error(e);
     resp.status(500).send("Something Went Wrong");
   }
 });
@@ -112,17 +119,19 @@ app.put("/articles/:id", async (req, resp) => {
 
     // Calculate reading time (if needed)
     const wordCount = content.split(/\s+/).length;
-    const avgWordsPerMinute = 200; // Adjust as needed
+    const avgWordsPerMinute = 200; // Average reading speed
     const calculatedReadingTime = Math.ceil(wordCount / avgWordsPerMinute);
 
+    // Prepare the updated article data
     const updatedArticle = {
       title,
       content,
       featured_image,
-      readingTime: readingTime || calculatedReadingTime, // Use provided or calculated reading time
+      readingTime: readingTime || calculatedReadingTime,
       time: new Date(), // Update time to current time
     };
 
+    // Find the article by ID and update it
     const article = await Article.findByIdAndUpdate(id, updatedArticle, {
       new: true,
     });
@@ -142,7 +151,7 @@ app.delete("/articles/:id", async (req, resp) => {
   }
 });
 
-// Route to search articles
+// Route to search articles by title or content
 app.get("/search", async (req, resp) => {
   try {
     const { query } = req.query;
@@ -158,7 +167,8 @@ app.get("/search", async (req, resp) => {
   }
 });
 
+// Define the port number for the app to listen on
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
-  console.log(`App listen at port ${PORT}`);
+  console.log(`App listening at port ${PORT}`);
 });

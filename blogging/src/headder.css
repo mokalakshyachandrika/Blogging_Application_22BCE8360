@@ -46,6 +46,7 @@
   opacity: 0.8;
 }
 .search-field {
+  height: fit-content;
   display: flex;
   align-items: center;
   border: 1px solid #ccc;

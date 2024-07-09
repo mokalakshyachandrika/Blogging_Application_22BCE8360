@@ -27,3 +27,6 @@
 .singleArticle-content p {
   font-size: 20px;
 }
+.single-meta {
+  display: flex;
+}

@@ -9,12 +9,15 @@ function CreateArticle() {
   const [featuredImage, setFeaturedImage] = useState("");
   const [readingTime, setReadingTime] = useState(0);
   const [user, setUser] = useState(null);
+  const [authorName, setAuthorName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        console.log(user.displayName);
+        setAuthorName(user.displayName);
       } else {
         navigate("/login"); // Redirect to login page if not authenticated
       }
@@ -35,6 +38,8 @@ function CreateArticle() {
     const time = new Date();
     const readingTime = calculateReadingTime(content);
 
+    console.log("Author Name:", authorName);
+
     const article = {
       title,
       content,
@@ -42,7 +47,10 @@ function CreateArticle() {
       readingTime,
       featured_image: featuredImage,
       uid: user.uid,
+      author: authorName,
     };
+
+    console.log("Article:", article);
 
     fetch("http://localhost:5001/articles", {
       method: "POST",
