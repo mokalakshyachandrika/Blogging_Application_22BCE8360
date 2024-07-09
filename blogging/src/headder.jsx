@@ -70,25 +70,24 @@ function Headder() {
           </ul>
         </div>
         <div className="search">
-          <IoSearch
-            size={35}
-            onClick={() => setShowSearchField(!showSearchField)}
-          />
-        </div>
-        {showSearchField && (
-          <div className="search-field">
+          <div
+            className={`search-field ${showSearchField ? "active" : "active"}`}
+          >
             <input
               type="text"
               value={searchInput}
               onChange={handleSearchInputChange}
-              placeholder="Search..."
+              placeholder="SEARCH FOR THE ARTICLES"
+              onFocus={() => setShowSearchField(true)}
+              onBlur={() => setShowSearchField(false)}
             />
+            <IoSearch size={20} className="search-icon" />
             {searchResults.length > 0 && (
               <ul className="search-results">
                 {searchResults.map((result) => (
                   <li
                     key={result._id}
-                    onClick={() => handleSearchResultClick(result._id)}
+                    onMouseDown={() => handleSearchResultClick(result._id)}
                   >
                     {result.title}
                   </li>
@@ -96,7 +95,7 @@ function Headder() {
               </ul>
             )}
           </div>
-        )}
+        </div>
         {user ? (
           <button onClick={signOut} className="logout-button">
             Logout
