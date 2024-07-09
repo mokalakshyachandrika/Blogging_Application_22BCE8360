@@ -20,7 +20,7 @@ function ArticleListItem({ article, onEdit, onDelete }) {
           <p className="article-meta-content">Author: {article.author}</p>
           <p className="article-meta-content">Published on: {article.time}</p>
           <p className="article-meta-content">
-            Reading Time: {article.readingTime}
+            Reading Time: {article.readingTime} Minutes
           </p>
         </div>
       </div>
