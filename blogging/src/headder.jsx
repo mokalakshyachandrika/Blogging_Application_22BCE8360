@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./google/config";
 import logo from "./assets/Logo.png";
@@ -8,6 +8,10 @@ import "./headder.css";
 
 function Headder() {
   const [user, setUser] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSearchField, setShowSearchField] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -20,6 +24,28 @@ function Headder() {
 
   const signOut = () => {
     auth.signOut();
+  };
+
+  const handleSearchInputChange = (e) => {
+    const query = e.target.value;
+    setSearchInput(query);
+
+    if (query) {
+      fetch(`http://localhost:5001/search?query=${query}`)
+        .then((response) => response.json())
+        .then((data) => setSearchResults(data))
+        .catch((error) =>
+          console.error("Error fetching search results:", error)
+        );
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearchResultClick = (id) => {
+    setSearchInput("");
+    setSearchResults([]);
+    navigate(`/articles/${id}`);
   };
 
   return (
@@ -44,8 +70,33 @@ function Headder() {
           </ul>
         </div>
         <div className="search">
-          <IoSearch size={35} />
+          <IoSearch
+            size={35}
+            onClick={() => setShowSearchField(!showSearchField)}
+          />
         </div>
+        {showSearchField && (
+          <div className="search-field">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={handleSearchInputChange}
+              placeholder="Search..."
+            />
+            {searchResults.length > 0 && (
+              <ul className="search-results">
+                {searchResults.map((result) => (
+                  <li
+                    key={result._id}
+                    onClick={() => handleSearchResultClick(result._id)}
+                  >
+                    {result.title}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
         {user ? (
           <button onClick={signOut} className="logout-button">
             Logout
