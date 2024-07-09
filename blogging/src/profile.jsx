@@ -12,7 +12,11 @@ function Profile({ user }) {
   useEffect(() => {
     fetch(`http://localhost:5001/articles/user/${user.uid}`)
       .then((response) => response.json())
-      .then((data) => setArticles(data))
+      .then((data) => {
+        // Sort articles by time descending (newest to oldest)
+        data.sort((a, b) => new Date(b.time) - new Date(a.time));
+        setArticles(data);
+      })
       .catch((error) => console.error("Error fetching articles:", error));
   }, [user.uid]);
 
