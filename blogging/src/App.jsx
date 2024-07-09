@@ -8,8 +8,10 @@ import BlogsCard from "./blogsCard";
 import Blogs from "./blogs";
 import SingleArticle from "./singleArticle";
 import Profile from "./profile";
+import CreateArticle from "./createArticle";
+import EditArticle from "./editArticle";
 import Login from "./google/login";
-import { auth } from "./google/config"; // Import Firebase auth
+import { auth } from "./google/config";
 
 import "./App.css";
 
@@ -107,6 +109,26 @@ function App() {
         <>
           <Headder />
           <Login />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/create",
+      element: (
+        <>
+          <Headder />
+          <CreateArticle />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/edit",
+      element: (
+        <>
+          <Headder />
+
           <Footer />
         </>
       ),

@@ -3,13 +3,10 @@ import "./profile.css";
 import { auth } from "./google/config";
 import ArticleListItem from "./articleListItem";
 import blankProfilePicture from "./assets/blank-profile-picture.webp";
+import { Link } from "react-router-dom";
 
 function Profile({ user }) {
   const [articles, setArticles] = useState([]);
-
-  const signOut = () => {
-    auth.signOut();
-  };
 
   useEffect(() => {
     fetch(`http://localhost:5001/articles/user/${user.uid}`)
@@ -48,11 +45,16 @@ function Profile({ user }) {
           />
           <h3 className="profile-name">{user.displayName}</h3>
           <p className="profile-email">{user.email}</p>
-          <button onClick={signOut}>Sign Out</button>
+
           <div className="profile-dash"></div>
         </div>
+        <div className="profile-create">
+          <Link to={"/create"} className="profile-create-text">
+            Create Post
+          </Link>
+        </div>
         <div className="profile-second">
-          <h2>Your Articles :</h2>
+          <h2 className="your-articles">Your Articles :</h2>
           {articles.map((article) => (
             <ArticleListItem
               key={article._id}

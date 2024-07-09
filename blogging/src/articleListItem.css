@@ -1,4 +1,5 @@
 .article-list-item {
+  font-family: "Poppins";
   display: flex;
   align-items: center;
   margin-left: 60px;
@@ -7,8 +8,8 @@
 }
 
 .article-img {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   margin-right: 20px;
 }
@@ -26,7 +27,7 @@
   font-size: 14px;
   color: #666;
   margin: 0;
-  padding-right: 250px;
+  width: 700px;
 
   overflow: hidden;
   display: -webkit-box;

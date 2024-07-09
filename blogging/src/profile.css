@@ -30,3 +30,24 @@
   height: 1px;
   background-color: hsl(0, 0%, 80%);
 }
+.your-articles {
+  margin-left: 5%;
+  font-family: Poppins;
+}
+.profile-create {
+  margin-left: 80%;
+  padding: 15px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  width: fit-content;
+}
+.profile-create-text {
+  font-family: "Poppins";
+  color: #fff;
+}
+.profile-create:hover {
+  opacity: 0.8;
+}
