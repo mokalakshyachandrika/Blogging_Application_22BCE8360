@@ -49,7 +49,7 @@ function App() {
                 key={blog._id}
                 img={blog.featured_image}
                 title={blog.title.replace(/<[^>]*>/g, "")}
-                time={blog.created_at}
+                readingTime={blog.readingTime}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
               />
@@ -71,7 +71,7 @@ function App() {
                 key={blog._id}
                 img={blog.featured_image}
                 title={blog.title.replace(/<[^>]*>/g, "")}
-                time={blog.created_at}
+                readingTime={blog.readingTime}
                 content={blog.content.replace(/<[^>]*>/g, "")}
                 link={`/articles/${blog._id}`}
               />

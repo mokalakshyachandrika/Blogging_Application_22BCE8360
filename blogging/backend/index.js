@@ -24,19 +24,23 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  time: {
-    type: Date,
-    default: Date.now,
-  },
   content: {
     type: String,
     required: true,
+  },
+  time: {
+    type: Date,
+    default: Date.now,
   },
   readingTime: {
     type: Number,
     required: true,
   },
-  userID: {
+  featured_image: {
+    type: String,
+    required: true,
+  },
+  uid: {
     type: String,
     required: true, // Firebase user ID
   },
@@ -52,11 +56,6 @@ app.use(cors());
 
 app.get("/", (req, resp) => {
   resp.send("App is Working");
-  // You can check if the backend is working or not by
-  // entering http://localhost:5001
-
-  // If you see 'App is Working', it means
-  // the backend is working properly
 });
 
 // Route to get all articles
@@ -96,9 +95,9 @@ app.post("/articles", async (req, resp) => {
 });
 
 // Route to get articles by user ID
-app.get("/articles/user/:userID", async (req, resp) => {
+app.get("/articles/user/:uid", async (req, resp) => {
   try {
-    const articles = await Article.find({ userID: req.params.userID });
+    const articles = await Article.find({ uid: req.params.uid });
     resp.send(articles);
   } catch (e) {
     resp.status(500).send("Something Went Wrong");
