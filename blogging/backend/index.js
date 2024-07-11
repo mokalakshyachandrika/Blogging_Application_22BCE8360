@@ -44,7 +44,27 @@ Article.createIndexes(); // Ensure indexes are created for efficient queries
 // Initialize the Express app
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies
-app.use(cors()); // Middleware to enable Cross-Origin Resource Sharing
+
+// Configure CORS to allow requests from your frontend domain
+app.use(
+  cors({
+    origin: [
+      "https://blogging-client-six.vercel.app",
+      "*",
+      "mongodb+srv://mokalakshya:MongoDB@cluster92955.gupvlnw.mongodb.net/",
+      "blogging-backend-1qmuft5pd-moka-lakshyas-projects.vercel.app",
+    ],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS", "PUT"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Headers",
+      "Access-Control-Allow-Methods",
+      "Access-Control-Allow-Credentials",
+    ],
+  })
+);
 
 // Define a route to test if the app is working
 app.get("/", (req, resp) => {
