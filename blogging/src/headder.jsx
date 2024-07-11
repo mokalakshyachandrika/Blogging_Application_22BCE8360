@@ -31,7 +31,7 @@ function Headder() {
     setSearchInput(query);
 
     if (query) {
-      fetch(`http://localhost:5001/search?query=${query}`)
+      fetch(`https://blogging-backend-omega.vercel.app/search?query=${query}`)
         .then((response) => response.json())
         .then((data) => setSearchResults(data))
         .catch((error) =>

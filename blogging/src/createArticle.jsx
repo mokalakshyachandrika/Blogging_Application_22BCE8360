@@ -52,7 +52,7 @@ function CreateArticle() {
 
     console.log("Article:", article);
 
-    fetch("http://localhost:5001/articles", {
+    fetch("https://blogging-backend-omega.vercel.app/articles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

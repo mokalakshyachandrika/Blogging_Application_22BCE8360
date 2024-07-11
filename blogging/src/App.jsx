@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5001/articles")
+    fetch("https://blogging-backend-omega.vercel.app/articles")
       .then((response) => response.json())
       .then((data) => {
         // Sort articles by time descending (newest to oldest)

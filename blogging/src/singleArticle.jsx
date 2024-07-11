@@ -9,7 +9,7 @@ function SingleArticle() {
 
   useEffect(() => {
     // Fetch the specific article based on ID
-    fetch(`http://localhost:5001/articles/${id}`)
+    fetch(`https://blogging-backend-omega.vercel.app/articles/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched Article Data:", data); // Debug statement

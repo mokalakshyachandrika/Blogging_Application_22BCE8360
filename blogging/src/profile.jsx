@@ -10,7 +10,7 @@ function Profile({ user }) {
   const navigate = useNavigate(); // Use useNavigate hook for navigation
 
   useEffect(() => {
-    fetch(`http://localhost:5001/articles/user/${user.uid}`)
+    fetch(`https://blogging-backend-omega.vercel.app/articles/user/${user.uid}`)
       .then((response) => response.json())
       .then((data) => {
         // Sort articles by time descending (newest to oldest)
@@ -25,7 +25,7 @@ function Profile({ user }) {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5001/articles/${id}`, {
+    fetch(`https://blogging-backend-omega.vercel.app/articles/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

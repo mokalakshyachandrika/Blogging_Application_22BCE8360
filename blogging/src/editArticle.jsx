@@ -13,7 +13,7 @@ function EditArticle() {
 
   useEffect(() => {
     // Fetch the article details based on the ID when component mounts
-    fetch(`http://localhost:5001/articles/${id}`)
+    fetch(`https://blogging-backend-omega.vercel.app/articles/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setTitle(data.title);
@@ -45,7 +45,7 @@ function EditArticle() {
       time: new Date(),
     };
 
-    fetch(`http://localhost:5001/articles/${id}`, {
+    fetch(`https://blogging-backend-omega.vercel.app/articles/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

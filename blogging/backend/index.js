@@ -6,11 +6,14 @@ const cors = require("cors");
 // Connect to the MongoDB database
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/", {
-      dbName: "blogging", // Database name
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(
+      "mongodb+srv://mokalakshya:MongoDB@cluster92955.gupvlnw.mongodb.net/",
+      {
+        dbName: "blogging", // Database name
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
     console.log("Connected to blogging database");
   } catch (err) {
     console.error(err);
@@ -172,3 +175,5 @@ const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
 });
+
+module.exports = app;
