@@ -63,6 +63,7 @@ app.use(
       "Access-Control-Allow-Methods",
       "Access-Control-Allow-Credentials",
     ],
+    credentials: true,
   })
 );
 

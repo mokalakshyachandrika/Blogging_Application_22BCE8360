@@ -45,13 +45,17 @@ function EditArticle() {
       time: new Date(),
     };
 
-    fetch(`https://blogging-backend-omega.vercel.app/articles/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `https://blogging-backend-omega.vercel.app/articles/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedArticle),
       },
-      body: JSON.stringify(updatedArticle),
-    })
+      { mode: "no-cors" }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Article updated:", data);
