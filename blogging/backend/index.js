@@ -1,12 +1,12 @@
 // Import necessary modules
-const mongoose = require("mongoose");
-const express = require("express");
-const cors = require("cors");
+import { connect, Schema, model } from "mongoose";
+import express, { json } from "express";
+import cors from "cors";
 
 // Connect to the MongoDB database
 const connectDB = async () => {
   try {
-    await mongoose.connect(
+    await connect(
       "mongodb+srv://mokalakshya:MongoDB@cluster92955.gupvlnw.mongodb.net/",
       {
         dbName: "blogging", // Database name
@@ -24,7 +24,7 @@ const connectDB = async () => {
 connectDB();
 
 // Define the schema for articles
-const articleSchema = new mongoose.Schema(
+const articleSchema = new Schema(
   {
     title: { type: String, required: true },
     content: { type: String, required: true },
@@ -38,12 +38,12 @@ const articleSchema = new mongoose.Schema(
 );
 
 // Create a model for articles based on the schema
-const Article = mongoose.model("articles", articleSchema);
+const Article = model("articles", articleSchema);
 Article.createIndexes(); // Ensure indexes are created for efficient queries
 
 // Initialize the Express app
 const app = express();
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(json()); // Middleware to parse JSON bodies
 
 // Configure CORS to allow requests from your frontend domain
 app.use(
@@ -197,4 +197,4 @@ app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
 });
 
-module.exports = app;
+export default app;

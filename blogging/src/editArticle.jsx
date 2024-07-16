@@ -33,9 +33,8 @@ function EditArticle() {
       readingTime, // This will be updated locally
     };
 
-    // Calculate reading time (replace with your own calculation logic)
     const wordCount = content.split(/\s+/).length;
-    const avgWordsPerMinute = 200; // Adjust as needed
+    const avgWordsPerMinute = 100;
     const calculatedReadingTime = Math.ceil(wordCount / avgWordsPerMinute);
 
     // Update article object with calculated reading time and current time

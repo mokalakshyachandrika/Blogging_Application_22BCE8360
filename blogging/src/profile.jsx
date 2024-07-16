@@ -63,7 +63,7 @@ function Profile({ user }) {
             <ArticleListItem
               key={article._id}
               article={article}
-              onEdit={handleEdit} // Pass handleEdit function to ArticleListItem
+              onEdit={handleEdit}
               onDelete={handleDelete}
             />
           ))}
